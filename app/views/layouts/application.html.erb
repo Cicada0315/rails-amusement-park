@@ -21,7 +21,18 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            
+            <% if logged_in? %>
+              <li>
+                <%= link_to "Log Out", logout_path, class: 'nav-link active', method: 'delete' %>
+              </li>
+            <% else %>
+              <li>
+                <%= link_to 'LOGIN', signin_path, class: 'nav-link active' %>
+              </li>
+            <li>
+                <%= link_to 'Sign Up', new_user_path, class: 'nav-link active' %>
+            </li>
+            <% end %>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -29,6 +40,12 @@
 
     <!-- content -->
     <div class="container"  role="main">
+      <% if flash[:notice] %>
+        <%= flash[:notice] %>
+      <% elsif flash[:message] %>
+        <%= flash[:mesaage] %>
+      <% end %>
+      
       <%= yield %>
     </div>
   </body>
